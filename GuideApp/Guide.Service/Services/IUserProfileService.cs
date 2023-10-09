@@ -1,12 +1,12 @@
-﻿using Guide.Service.Dtos;
+﻿using Guide.Service.Models;
 
 namespace Guide.Service.Services
 {
     public interface IUserProfileService
     {
-        Task<List<UserProfileDto>> GetAllAsync();
-        Task<UserProfileDto> CreateAsync(UserProfileDto userProfileDto);
-        Task<UserProfileDto> DeleteAsync(UserProfileDto userProfileDto);
-        Task<UserProfileDto> GetByIdAsync(string uUId);
+        Task<List<UserProfile>> GetAllAsync();
+        Task<UserProfile> CreateAsync(UserProfile userProfile);
+        Task<bool> DeleteAsync(string uUId);
+        Task<UserProfile> GetByIdAsync(string uUId);
     }
 }
