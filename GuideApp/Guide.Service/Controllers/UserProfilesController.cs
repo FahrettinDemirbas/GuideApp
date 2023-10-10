@@ -1,4 +1,5 @@
-﻿using Guide.Service.Models;
+﻿using Guide.Service.Dtos;
+using Guide.Service.Models;
 using Guide.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,23 +16,23 @@ namespace Guide.Service.Controllers
             _userProfileService = userProfileService;
         }
         [HttpGet]                          
-        public async Task<List<UserProfile>> GetAll()
+        public async Task<List<UserProfileDto>> GetAll()
         {
             var categories = await _userProfileService.GetAllAsync();
             return categories;
         }
 
         [HttpGet("{uUId}")]
-        public async Task<UserProfile> GetById(string uUId)
+        public async Task<UserProfileDto> GetById(string uUId)
         {
             var response = await _userProfileService.GetByIdAsync(uUId);
             return response;
         }
 
         [HttpPost("Create")]
-        public async Task<UserProfile> Create(UserProfile userProfile)
+        public async Task<UserProfileDto> Create(UserProfileCreateDto userProfileCreateDto)
         {
-            var response = await _userProfileService.CreateAsync(userProfile);
+            var response = await _userProfileService.CreateAsync(userProfileCreateDto);
             return response;
         }
 

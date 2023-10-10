@@ -1,4 +1,6 @@
-﻿using Guide.Service.Models;
+﻿using AutoMapper;
+using Guide.Service.Dtos;
+using Guide.Service.Models;
 using Guide.Service.Settings;
 using MongoDB.Driver;
 
@@ -7,18 +9,20 @@ namespace Guide.Service.Services
     public class UserContactService : IUserContactService
     {
         private readonly IMongoCollection<UserContact> _userContactCollection;
-
-        public UserContactService(IDatabaseSettings databaseSettings)
+        private readonly IMapper _mapper;
+        public UserContactService(IMapper mapper, IDatabaseSettings databaseSettings)
         {
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
 
             _userContactCollection = database.GetCollection<UserContact>(databaseSettings.UserContactCollectionName);
+            _mapper = mapper;
         }
-        public async Task<UserContact> CreateAsync(UserContact userContact)
+        public async Task<UserContactDto> CreateAsync(UserContactCreateDto userContactCreateDto)
         {
+            var userContact = _mapper.Map<UserContact>(userContactCreateDto);
             await _userContactCollection.InsertOneAsync(userContact);
-            return userContact;
+            return _mapper.Map<UserContactDto>(userContactCreateDto);
         }
 
         public async Task<bool> DeleteAsync(string id)
@@ -27,16 +31,16 @@ namespace Guide.Service.Services
             return userContact.DeletedCount > 0;
         }
 
-        public async Task<List<UserContact>> GetAllAsync()
+        public async Task<List<UserContactDto>> GetAllAsync()
         {
-            var userContacts = await _userContactCollection.Find(userContact => true).ToListAsync();
-            return userContacts;
+            var userContacts = await _userContactCollection.Find(userContact => true).ToListAsync();            
+            return _mapper.Map<List<UserContactDto>>(userContacts);
         }
 
-        public async Task<UserContact> GetByIdAsync(string id)
+        public async Task<UserContactDto> GetByIdAsync(string id)
         {
             var userContact = await _userContactCollection.Find<UserContact>(x => x.Id == id).FirstOrDefaultAsync();
-            return userContact;
+            return _mapper.Map<UserContactDto>(userContact); ;
         }
     }
 }

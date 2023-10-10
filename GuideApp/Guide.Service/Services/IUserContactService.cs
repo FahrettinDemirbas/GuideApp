@@ -1,12 +1,13 @@
-﻿using Guide.Service.Models;
+﻿using Guide.Service.Dtos;
+using Guide.Service.Models;
 
 namespace Guide.Service.Services
 {
     public interface IUserContactService
     {
-        Task<List<UserContact>> GetAllAsync();
-        Task<UserContact> CreateAsync(UserContact userContact);
+        Task<List<UserContactDto>> GetAllAsync();
+        Task<UserContactDto> CreateAsync(UserContactCreateDto userContactCreateDto);
         Task<bool> DeleteAsync(string id);
-        Task<UserContact> GetByIdAsync(string id);
+        Task<UserContactDto> GetByIdAsync(string id);
     }
 }
