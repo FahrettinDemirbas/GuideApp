@@ -15,5 +15,13 @@ namespace Guide.Service
             [Description("Konum")]
             Konum
         }
+
+        public enum ReportStatus
+        {
+            [Description("Hazırlanıyor")]
+            Hazirlaniyor,
+            [Description("Tamamlandı")]
+            Tamamlandi
+        }
     }
 }

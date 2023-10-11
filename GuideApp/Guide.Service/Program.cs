@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IUserContactService, UserContactService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddSingleton<IDatabaseSettings>(sp =>
@@ -23,15 +24,15 @@ var app = builder.Build();
 
 //Test Insert
 
-using (var scope = app.Services.CreateScope())
-{
-    var serviceProvider = scope.ServiceProvider;
-    var keyValueService = serviceProvider.GetRequiredService<IUserProfileService>();
-    if (!keyValueService.GetAllAsync().Result.Any())
-    {
-        keyValueService.CreateAsync(new Guide.Service.Dtos.UserProfileCreateDto() { Company = "Demirbaþ", FirstName = "F", LastName = "D" });
-    }
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var serviceProvider = scope.ServiceProvider;
+//    var keyValueService = serviceProvider.GetRequiredService<IUserProfileService>();
+//    if (!keyValueService.GetAllAsync().Result.Any())
+//    {
+//        keyValueService.CreateAsync(new Guide.Service.Dtos.UserProfileCreateDto() { Company = "Demirbaþ", FirstName = "F", LastName = "D" });
+//    }
+//}
 
 
 if (app.Environment.IsDevelopment())

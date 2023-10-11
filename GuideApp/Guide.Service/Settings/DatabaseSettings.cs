@@ -4,6 +4,7 @@
     {
         public string UserProfileCollectionName { get; set; }
         public string UserContactCollectionName { get; set; }
+        public string ReportCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }

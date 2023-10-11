@@ -13,6 +13,8 @@ namespace Guide.Service.Mapping
             CreateMap<UserContact, UserContactDto>().ReverseMap();
             CreateMap<UserProfile, UserProfileCreateDto>().ReverseMap();
             CreateMap<UserProfile, UserProfileDto>().ReverseMap();
+            CreateMap<Report, ReportCreateDto>().ReverseMap();
+            CreateMap<Report, ReportDto>().ReverseMap();
         }
     }
 }
